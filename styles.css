@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 320px 1fr;
+}
+
+.controls {
+  color: white;
+  background: black;
+  padding: 24px;
+}
+
+.input-group + .input-group {
+  margin-top: 24px;
+}
+
+label {
+  display: block;
+}
+
+canvas {
+  height: 100vh !important;
+  width: 100% !important;
+  object-fit: contain;
+  display: block;
+}

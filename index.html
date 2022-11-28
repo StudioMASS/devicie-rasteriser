@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Devicie</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="controls">
+        <h1>Devicie</h1>
+        <div class="input-group">
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/png, image/jpeg, video/*"
+          />
+        </div>
+
+        <div class="input-group">
+          <button id="invertButton">Invert</button>
+        </div>
+
+        <div class="input-group">
+          <button id="invertImageButton">Invert Image</button>
+        </div>
+
+        <div class="input-group">
+          <button id="limitSizeButton">Limit Size</button>
+        </div>
+
+        <div class="input-group">
+          <label>Black Point</label>
+          <input
+            type="range"
+            min="0"
+            max="255"
+            value="0"
+            class="slider"
+            id="blackPointSlider"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>White Point</label>
+          <input
+            type="range"
+            min="0"
+            max="255"
+            value="255"
+            class="slider"
+            id="whitePointSlider"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>Density</label>
+          <input
+            type="range"
+            min="1"
+            max="4"
+            value="1"
+            class="slider"
+            id="densitySlider"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>Image Scale</label>
+          <input
+            type="range"
+            min="1"
+            max="32"
+            value="1"
+            class="slider"
+            id="scaleSlider"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>Minimum Dot Size</label>
+          <input
+            type="range"
+            min="1"
+            max="8"
+            value="1"
+            class="slider"
+            id="minDotSizeSlider"
+          />
+        </div>
+
+        <button id="exportButton" type="button">Export</button>
+      </aside>
+
+      <main id="main"></main>
+    </div>
+  </body>
+</html>
