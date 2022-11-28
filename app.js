@@ -8,7 +8,7 @@ let densitySlider;
 let scaleSlider;
 let minDotSizeSlider;
 let img;
-let main;
+let app;
 
 // Initial Values
 let density = 25;
@@ -33,7 +33,7 @@ function setup() {
   scaleSlider = select("#scaleSlider");
   minDotSizeSlider = select("#minDotSizeSlider");
   invertImageButton = select("#invertImageButton");
-  main = select("#main");
+  app = select(".app");
 
   createCanvas(1600, 1600);
 
@@ -90,8 +90,11 @@ function invertColors() {
   backgroundColor = prevForeground;
   foregroundColor = prevBackground;
 
-  let col = color(backgroundColor);
-  main.style("background-color", col);
+  if (backgroundColor === 0) {
+    app.addClass("inverted");
+  } else {
+    app.removeClass("inverted");
+  }
 }
 
 function handleBlackPointChange(event) {
@@ -111,6 +114,7 @@ function handleFile(event) {
     img = loadImage(urlOfImageFile);
 
     console.log("it ran");
+    select(".controls").removeClass("disabled");
   } else {
     console.log("it failed");
     img = null;
