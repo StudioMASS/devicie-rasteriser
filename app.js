@@ -1,12 +1,13 @@
 let fileInput;
 let exportButton;
-let invertButton;
-let invertImageButton;
 let blackPointSlider;
 let whitePointSlider;
 let densitySlider;
-let scaleSlider;
+let imageScaleSlider;
 let minDotSizeSlider;
+let flipColorsCheckbox;
+let invertImageCheckbox;
+let limitDotSizeCheckbox;
 let img;
 let app;
 
@@ -16,7 +17,7 @@ let backgroundColor = 255;
 let foregroundColor = 0;
 let blackPoint = 0;
 let whitePoint = 255;
-let scale = 1;
+let imageScale = 1;
 let limitSize = true;
 let invertImage = false;
 let minDotSize = 1;
@@ -25,14 +26,14 @@ function setup() {
   // Select elements
   fileInput = select("#fileInput");
   exportButton = select("#exportButton");
-  invertButton = select("#invertButton");
-  limitSizeButton = select("#limitSizeButton");
   blackPointSlider = select("#blackPointSlider");
   whitePointSlider = select("#whitePointSlider");
   densitySlider = select("#densitySlider");
-  scaleSlider = select("#scaleSlider");
+  imageScaleSlider = select("#imageScaleSlider");
   minDotSizeSlider = select("#minDotSizeSlider");
-  invertImageButton = select("#invertImageButton");
+  flipColorsCheckbox = select("#flipColors");
+  invertImageCheckbox = select("#invertImage");
+  limitDotSizeCheckbox = select("#limitDotSize");
   app = select(".app");
 
   createCanvas(1600, 1600);
@@ -41,12 +42,12 @@ function setup() {
   blackPointSlider.input(handleBlackPointChange);
   whitePointSlider.input(handleWhitePointChange);
   densitySlider.input(handleDensityChange);
-  invertButton.mousePressed(invertColors);
-  invertImageButton.mousePressed(handleInvertImage);
-  limitSizeButton.mousePressed(handleLimitSize);
-  scaleSlider.input(handleScaleChange);
+  imageScaleSlider.input(handleimageScaleChange);
   exportButton.mousePressed(exportCanvas);
   minDotSizeSlider.input(handleMinDotSizeChange);
+  flipColorsCheckbox.changed(handleFlipColors);
+  invertImageCheckbox.changed(handleInvertImage);
+  limitDotSizeCheckbox.changed(handleLimitSize);
 }
 
 function draw() {
@@ -55,7 +56,6 @@ function draw() {
   fill(foregroundColor);
 
   let tiles = density;
-  // let tileSize = width / tiles;
   let tileSize = width / tiles;
 
   for (let i = 0; i < tiles; i++) {
@@ -64,7 +64,10 @@ function draw() {
       const posY = j * tileSize + tileSize / 2;
 
       if (img) {
-        let c = img.get(i * (tileSize / scale), j * (tileSize / scale));
+        let c = img.get(
+          i * (tileSize / imageScale),
+          j * (tileSize / imageScale)
+        );
         const avg = (c[0] + c[1] + c[3]) / 3;
         let circleSize = map(
           avg,
@@ -76,24 +79,10 @@ function draw() {
         );
 
         circle(posX, posY, circleSize);
-        // circle(posX, posY, circleSize);
       } else {
         circle(posX, posY, 1);
       }
     }
-  }
-}
-
-function invertColors() {
-  const prevBackground = backgroundColor;
-  const prevForeground = foregroundColor;
-  backgroundColor = prevForeground;
-  foregroundColor = prevBackground;
-
-  if (backgroundColor === 0) {
-    app.addClass("inverted");
-  } else {
-    app.removeClass("inverted");
   }
 }
 
@@ -121,28 +110,47 @@ function handleFile(event) {
   }
 }
 
-function handleLimitSize() {
-  const prevValue = limitSize;
-  limitSize = !prevValue;
+function handleLimitSize(e) {
+  if (e.target.checked) {
+    limitSize = true;
+  } else {
+    limitSize = false;
+  }
 }
 
-function handleInvertImage() {
-  const prevValue = invertImage;
-  invertImage = !prevValue;
+function handleInvertImage(e) {
+  if (e.target.checked) {
+    invertImage = true;
+  } else {
+    invertImage = false;
+  }
 }
 
 function exportCanvas() {
-  saveCanvas("myCanvas", "png");
+  saveCanvas("Devicie-Image", "png");
 }
 
 function handleDensityChange(event) {
   density = 12.5 * 2 ** event.target.value;
 }
 
-function handleScaleChange(event) {
-  scale = event.target.value;
+function handleimageScaleChange(event) {
+  imageScale = 1 + event.target.value / 10;
+  console.log(1 + event.target.value / 10);
 }
 
 function handleMinDotSizeChange(event) {
   minDotSize = event.target.value;
+}
+
+function handleFlipColors(e) {
+  if (e.target.checked) {
+    backgroundColor = 0;
+    foregroundColor = 255;
+    app.addClass("inverted");
+  } else {
+    backgroundColor = 255;
+    foregroundColor = 0;
+    app.removeClass("inverted");
+  }
 }

@@ -23,7 +23,7 @@
             />
           </svg>
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>Upload Image</label>
             <input
               id="fileInput"
@@ -34,21 +34,29 @@
         </header>
 
         <div class="controls disabled">
-          <div class="input-group">
-            <button id="invertButton">Invert</button>
+          <h4>Controls</h4>
+          <div class="checkboxGroup">
+            <input type="checkbox" id="flipColors" name="flipColors" />
+            <label for="flipColors">Flip Colours</label>
           </div>
 
-          <div class="input-group">
-            <button id="invertImageButton">Invert Image</button>
+          <div class="checkboxGroup">
+            <input type="checkbox" id="invertImage" name="invertImage" />
+            <label for="invertImage">Invert Image</label>
           </div>
-
-          <div class="input-group">
-            <button id="limitSizeButton">Limit Size</button>
+          <div class="checkboxGroup">
+            <input
+              type="checkbox"
+              id="limitDotSize"
+              name="limitDotSize"
+              checked
+            />
+            <label for="limitDotSize">Limit Dot Size</label>
           </div>
 
           <hr />
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>Black Point</label>
             <input
               type="range"
@@ -60,7 +68,7 @@
             />
           </div>
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>White Point</label>
             <input
               type="range"
@@ -74,7 +82,7 @@
 
           <hr />
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>Density</label>
             <input
               type="range"
@@ -86,19 +94,19 @@
             />
           </div>
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>Image Scale</label>
             <input
               type="range"
-              min="1"
-              max="32"
-              value="1"
+              min="0"
+              max="100"
+              value="0"
               class="slider"
-              id="scaleSlider"
+              id="imageScaleSlider"
             />
           </div>
 
-          <div class="input-group">
+          <div class="inputGroup">
             <label>Minimum Dot Size</label>
             <input
               type="range"
@@ -109,7 +117,8 @@
               id="minDotSizeSlider"
             />
           </div>
-
+        </div>
+        <div class="exportContainer">
           <button id="exportButton" type="button" class="button large">
             Export PNG
           </button>
