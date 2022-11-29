@@ -104,8 +104,11 @@ function handleFile(event) {
 
     console.log("it ran");
     select(".controls").removeClass("disabled");
+    exportButton.removeAttribute("disabled");
   } else {
     console.log("it failed");
+    select(".controls").addClass("disabled");
+    exportButton.attribute("disabled", "");
     img = null;
   }
 }

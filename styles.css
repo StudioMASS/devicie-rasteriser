@@ -182,3 +182,7 @@ h4 {
 .checkboxGroup + .checkboxGroup {
   margin-top: 16px;
 }
+
+.button:disabled {
+  opacity: 0.2;
+}
