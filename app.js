@@ -9,6 +9,7 @@ let flipColorsCheckbox;
 let invertImageCheckbox;
 let limitDotSizeCheckbox;
 let img;
+let vid;
 let app;
 
 // Initial Values
@@ -79,11 +80,42 @@ function draw() {
         );
 
         circle(posX, posY, circleSize);
+      } else if (vid) {
+        vid.loadPixels();
+
+        // let c = vid.get(
+        //   i * (tileSize / imageScale),
+        //   j * (tileSize / imageScale)
+        // );
+
+        // let pixelIndex =
+        // const avg = (c[0] + c[1] + c[3]) / 3;
+        const pixelIndex = (i + j * vid.width) * 4;
+        const r = vid.pixels[pixelIndex + 0];
+        const g = vid.pixels[pixelIndex + 1];
+        const b = vid.pixels[pixelIndex + 2];
+        const avg = (r + g + b) / 3;
+
+        let circleSize = map(
+          avg,
+          invertImage ? whitePoint : blackPoint,
+          invertImage ? blackPoint : whitePoint,
+          minDotSize,
+          tileSize,
+          limitSize
+        );
+
+        circle(posX, posY, circleSize);
       } else {
         circle(posX, posY, 1);
       }
     }
   }
+}
+
+function vidLoad() {
+  vid.loop();
+  vid.volume(0);
 }
 
 function handleBlackPointChange(event) {
@@ -96,12 +128,17 @@ function handleWhitePointChange(event) {
 
 function handleFile(event) {
   const file = event.target.files[0];
-  console.log(file);
+  console.log(event);
 
-  if (file.type) {
+  if (file.type.includes("video/mp4")) {
+    alert("We don't support video just yet, try an image file");
+    // let urlOfVideoFile = URL.createObjectURL(file);
+    // vid = createVideo(urlOfVideoFile, vidLoad);
+    // select(".controls").removeClass("disabled");
+    // exportButton.removeAttribute("disabled");
+  } else if (file.type.includes("image")) {
     let urlOfImageFile = URL.createObjectURL(file);
     img = loadImage(urlOfImageFile);
-
     console.log("it ran");
     select(".controls").removeClass("disabled");
     exportButton.removeAttribute("disabled");
